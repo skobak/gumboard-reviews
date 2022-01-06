@@ -1,6 +1,7 @@
 #root {
   max-width: 360px;
   margin: 0 auto;
+  position: relative;
 }
 .product {
   margin: 20px;
@@ -11,4 +12,81 @@
 }
 .product:hover {
   background-color: #dadada;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.review {
+  display: flex;
+}
+
+span.reviewRating {
+  margin-left: 10px;
+}
+span.reviewText {
+  color: gray;
+}
+
+/* span.star:hover > span:before {
+  background: orange;
+  cursor: pointer;
+} */
+
+/*shows the stars side by side, centered, and in reverse order than the HMTL*/
+.rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+
+/*style the empty stars, sets position:relative as base for pseudo-elements*/
+.rating:not(.disabled) > span {
+  position: relative;
+  /* color: #ffd700; */
+  cursor: pointer;
+  font-size: 20px;
+}
+.rating .star {
+  color: gray;
+}
+.rating .star.active {
+  /* content: '\2605'; */
+  color: #ffd700 !important;
+}
+
+/* sets filled star pseudo-elements */
+.rating:not(.disabled) > span::before {
+  /* content: '\2605'; */
+  /* position: absolute; */
+  color: gray;
+  /* opacity: 0; */
+}
+/*overlays a filled start character to the hovered element and all previous siblings*/
+.rating:not(.disabled) > span:hover:before,
+.rating:not(.disabled) > span:hover ~ span:before {
+  content: '\2605';
+  position: absolute;
+  color: #ffd700;
+}
+
+/*overlays a filled start character on the selected element and all previous siblings*/
+.rating:not(.disabled) > input:checked ~ span:before {
+  color: #ffd700;
+}
+
+/*when an element is selected and pointer re-enters the rating container, selected rate and siblings get semi transparent, as reminder of current selection*/
+.rating:not(.disabled):hover > input:checked ~ span:before {
+  opacity: 0.4;
+}
+
+.overlay {
+  position: absolute;
+  background: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  border: 1px solid #dadada;
+  top: 25%;
 }

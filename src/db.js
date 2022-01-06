@@ -37,4 +37,19 @@ async function addProduct(name) {
   }
 }
 
-export { getProducts, addProduct, getProductReviews };
+async function addReview(productId, rating, text) {
+  try {
+    const docRef = await addDoc(
+      collection(db, `products/${productId}/reviews`),
+      {
+        rating,
+        text,
+      },
+    );
+    console.log('Document written with ID: ', docRef.id);
+  } catch (e) {
+    console.error('Error adding document: ', e);
+  }
+}
+
+export { getProducts, addProduct, getProductReviews, addReview };
