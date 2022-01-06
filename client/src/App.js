@@ -44,9 +44,10 @@ function App() {
     if (streamSubcription) {
       streamSubcription.unsubscribe();
     }
-    const subscripton = productChange$.subscribe((doc) => {
+    const subscripton = productChange$.subscribe(async (doc) => {
       if (doc) {
-        console.log(doc.data());
+        // For simplicity we just use firestore callback to retrieve document again
+        setReviews(await getProductReviews(product.uid));
       }
     });
     setStreamSubcription(subscripton);
