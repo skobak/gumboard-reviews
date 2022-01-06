@@ -3,10 +3,18 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import Product from './components/Product';
 import ProductReviews from './components/ProductReviews';
-import { getProducts, addProduct, getProductReviews, addReview } from './db';
+import {
+  getProducts,
+  addProduct,
+  getProductReviews,
+  addReview,
+  getProductUpdateSubsciption,
+  productChange$,
+} from './db';
 import ReviewModal from './components/ReviewModal';
 
 function App() {
+  const [streamSubcription, setStreamSubcription] = useState(null);
   const [products, setProducts] = useState([]);
   const [productName, setProductName] = useState('');
   const [productUID, setProductUid] = useState('');
@@ -33,6 +41,18 @@ function App() {
     setHomePage(false);
     setProductName(product.name);
     setProductUid(product.uid);
+    if (streamSubcription) {
+      streamSubcription.unsubscribe();
+    }
+    const subscripton = productChange$.subscribe((doc) => {
+      if (doc) {
+        console.log(doc.data());
+      }
+    });
+    setStreamSubcription(subscripton);
+
+    getProductUpdateSubsciption(product.uid);
+
     setReviews(await getProductReviews(product.uid));
   };
 
