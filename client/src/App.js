@@ -2,10 +2,13 @@ import './App.css';
 
 import React, { useEffect, useState } from 'react';
 import Product from './components/Product';
+import ProductReviews from './components/ProductReviews';
 import { getProducts, addProduct, getProductReviews, addReview } from './db';
 
 function App() {
   const [products, setProducts] = useState([]);
+  const [productName, setProductName] = useState('');
+  const [reviews, setReviews] = useState([]);
   const [isOverlayVisible, setOverlayVisibility] = useState(false);
 
   // We do not use routing for simplicity and smaller bundle size
@@ -16,9 +19,11 @@ function App() {
     setProducts(await getProducts());
   }, []);
 
-  const onProductSelected = (productId) => {
+  const onProductSelected = async (product) => {
     setProductPage(true);
     setHomePage(false);
+    setProductName(product.name);
+    setReviews(await getProductReviews(product.uid));
   };
 
   const showOverlay = () => {
@@ -41,16 +46,24 @@ function App() {
               <Product
                 key={product.uid}
                 product={product}
-                onClick={(uid) => onProductSelected(uid)}
+                onClick={(product) => onProductSelected(product)}
               />
             ))}
           </div>
         )}
-        {isProductPage && <div className="product">Product</div>}
+        {isProductPage && (
+          <div>
+            <ProductReviews
+              name={productName}
+              reviews={reviews}
+              onAddReviewClick={() => setOverlayVisibility(true)}
+            />
+          </div>
+        )}
       </div>
       {isOverlayVisible && (
         <div id="overlay" className="overlay">
-          Hi
+          <h2></h2>
         </div>
       )}
     </div>

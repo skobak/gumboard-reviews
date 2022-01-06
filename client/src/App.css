@@ -17,7 +17,7 @@
 .product:hover {
   background-color: #dadada;
 }
-.ratingRow {
+.rating-row {
   display: flex;
   justify-content: space-between;
   padding-bottom: 59px;
@@ -28,10 +28,10 @@
   display: flex;
   align-items: center;
 }
-span.reviewRating {
+span.review-rating {
   margin-left: 10px;
 }
-span.reviewText {
+span.review-text {
   color: gray;
 }
 .rating {
@@ -118,7 +118,7 @@ h3 {
   line-height: 33px;
   color: #000000;
 }
-.totalRate {
+.total-rate {
   font-style: normal;
   font-weight: normal;
   font-size: 44px;
@@ -161,14 +161,14 @@ h3 {
   height: 30px;
 }
 
-.review .reviewRating {
+.review .review-rating {
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
   line-height: 23px;
   color: #000000;
 }
-.review .reviewText {
+.review .review-text {
   font-style: normal;
   font-weight: normal;
   font-size: 20px;

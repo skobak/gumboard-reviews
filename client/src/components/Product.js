@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Product = ({ product, onClick }) => {
   return (
-    <div className="product" onClick={() => onClick(product.uid)}>
+    <div className="product" onClick={() => onClick(product)}>
       {product?.name}
     </div>
   );
@@ -11,9 +11,11 @@ const Product = ({ product, onClick }) => {
 
 Product.defaultProps = {
   product: {},
+  onClick: () => {},
 };
 Product.propTypes = {
-  name: PropTypes.object,
+  product: PropTypes.object,
+  onClick: PropTypes.func,
 };
 
 export default Product;
