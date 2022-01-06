@@ -1,5 +1,12 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc,
+  doc,
+  setDoc,
+} from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -28,9 +35,8 @@ const getProductReviews = async (uid) => {
 
 async function addProduct(name) {
   try {
-    const docRef = await addDoc(collection(db, 'products'), {
-      name,
-    });
+    const docRef = doc(collection(db, 'products'));
+    await setDoc(docRef, { name, uid: docRef.id }, { merge: true });
     console.log('Document written with ID: ', docRef.id);
   } catch (e) {
     console.error('Error adding document: ', e);

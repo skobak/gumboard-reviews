@@ -5,9 +5,17 @@ import state from './state';
 
 // Working with DOM part
 const addProductBtn = document.getElementById('add-product-button');
+const restartBtn = document.getElementById('restart-button');
 const root = document.getElementById('root');
 
-addProductBtn.addEventListener('click', () => addProduct('New Product'));
+addProductBtn.addEventListener('click', async () => {
+  await addProduct('New Product');
+  await restart();
+});
+
+restartBtn.addEventListener('click', async () => {
+  await restart();
+});
 
 // Callback on product click
 const showProduct = async (uid, name) => {
@@ -32,12 +40,16 @@ const onReviewSubmit = async () => {
   showProduct(state.currentProductUid, state.currentProductName);
 };
 
-// async main function
-async function main() {
+const restart = async () => {
   const products = await getProducts();
   renderProducts(products, (uid, name) => {
     showProduct(uid, name);
   });
+};
+
+// async main function
+async function main() {
+  await restart();
 }
 
 (async () => {
