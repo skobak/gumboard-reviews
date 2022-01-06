@@ -1,3 +1,8 @@
+/**
+ * Simple state object (mutable)
+ *
+ */
+
 export default {
   currentProductUid: '',
   currentProductName: '',

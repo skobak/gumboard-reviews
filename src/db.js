@@ -1,3 +1,8 @@
+/**
+ * This file in charge of DB(Firebase) comunication
+ *
+ */
+
 import { initializeApp } from 'firebase/app';
 import {
   getFirestore,
@@ -37,7 +42,6 @@ async function addProduct(name) {
   try {
     const docRef = doc(collection(db, 'products'));
     await setDoc(docRef, { name, uid: docRef.id }, { merge: true });
-    console.log('Document written with ID: ', docRef.id);
   } catch (e) {
     console.error('Error adding document: ', e);
   }
@@ -45,14 +49,10 @@ async function addProduct(name) {
 
 async function addReview(productId, rating, text) {
   try {
-    const docRef = await addDoc(
-      collection(db, `products/${productId}/reviews`),
-      {
-        rating,
-        text,
-      },
-    );
-    console.log('Document written with ID: ', docRef.id);
+    await addDoc(collection(db, `products/${productId}/reviews`), {
+      rating,
+      text,
+    });
   } catch (e) {
     console.error('Error adding document: ', e);
   }

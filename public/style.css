@@ -1,5 +1,9 @@
+* {
+  font-family: 'Roboto', sans-serif;
+}
 #root {
-  max-width: 360px;
+  max-width: 640px;
+  min-width: 640px;
   margin: 0 auto;
   position: relative;
 }
@@ -13,80 +17,166 @@
 .product:hover {
   background-color: #dadada;
 }
-
-.row {
+.ratingRow {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 59px;
+  margin-bottom: 41px;
+  border-bottom: 1px solid #b9b9b9;
 }
-
 .review {
   display: flex;
+  align-items: center;
 }
-
 span.reviewRating {
   margin-left: 10px;
 }
 span.reviewText {
   color: gray;
 }
-
-/* span.star:hover > span:before {
-  background: orange;
-  cursor: pointer;
-} */
-
-/*shows the stars side by side, centered, and in reverse order than the HMTL*/
 .rating {
+  height: 40px;
+  align-items: center;
   display: flex;
   flex-direction: row-reverse;
-  justify-content: center;
+  justify-content: start;
 }
-
-/*style the empty stars, sets position:relative as base for pseudo-elements*/
 .rating:not(.disabled) > span {
   position: relative;
-  /* color: #ffd700; */
   cursor: pointer;
   font-size: 20px;
 }
 .rating .star {
-  color: gray;
+  stroke: #e0e0e0;
+  fill: #e0e0e0;
+  -webkit-filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.1));
 }
 .rating .star.active {
-  /* content: '\2605'; */
-  color: #ffd700 !important;
+  fill: #ffcd69;
+  stroke: #ffcd69;
+}
+.rating:not(.disabled):hover > span.star ~ span,
+.rating:not(.disabled):hover > span.star:first-child {
+  stroke: #e0e0e0;
+  fill: #e0e0e0;
 }
 
-/* sets filled star pseudo-elements */
-.rating:not(.disabled) > span::before {
-  /* content: '\2605'; */
-  /* position: absolute; */
-  color: gray;
-  /* opacity: 0; */
-}
-/*overlays a filled start character to the hovered element and all previous siblings*/
-.rating:not(.disabled) > span:hover:before,
-.rating:not(.disabled) > span:hover ~ span:before {
-  content: '\2605';
-  position: absolute;
-  color: #ffd700;
-}
-
-/*overlays a filled start character on the selected element and all previous siblings*/
-.rating:not(.disabled) > input:checked ~ span:before {
-  color: #ffd700;
-}
-
-/*when an element is selected and pointer re-enters the rating container, selected rate and siblings get semi transparent, as reminder of current selection*/
-.rating:not(.disabled):hover > input:checked ~ span:before {
-  opacity: 0.4;
+.rating:not(.disabled) > span:hover ~ span,
+.rating:not(.disabled) > span:hover {
+  fill: #ffcd69 !important;
+  stroke: #ffcd69 !important;
 }
 
 .overlay {
   position: absolute;
+  width: 680px;
   background: white;
-  border-radius: 5px;
-  padding: 10px 20px;
+  border-radius: 15px;
+  padding: 18px 53px 45px 53px;
   border: 1px solid #dadada;
   top: 25%;
+  left: calc(50% - 340px);
+  display: flex;
+  flex-direction: column;
+}
+.overlay > div,
+.overlay > input,
+.overlay > label {
+  max-width: 377px;
+  margin: 20px 0px;
+}
+.overlay label {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+  color: #000000;
+}
+input#review-input {
+  border: 0;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 23px;
+  padding: 10px;
+  margin-left: -10px;
+  color: #929292;
+}
+
+h2 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 44px;
+  line-height: 52px;
+  color: #000000;
+}
+h3 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 33px;
+  color: #000000;
+}
+.totalRate {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 44px;
+  line-height: 52px;
+  color: #000000;
+}
+
+.btn {
+  display: inline-block;
+  width: auto;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 17px;
+  line-height: 21px;
+  color: #797874;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  padding: 14px 10px 13px 14px;
+  cursor: pointer;
+}
+.btn:hover {
+  background: #f5f5f5;
+}
+
+.left-part {
+  display: flex;
+  align-items: center;
+}
+
+.left-part .rating {
+  margin-left: 24px;
+}
+
+.star-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.review .reviewRating {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 23px;
+  color: #000000;
+}
+.review .reviewText {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 23px;
+  color: #858585;
+}
+
+.hide {
+  opacity: 0;
+  z-index: -1;
 }
