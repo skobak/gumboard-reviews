@@ -8,6 +8,7 @@ const Stars = ({ value, editable, onClick }) => {
     <div className={`rating ${editable ? '' : 'disabled'}`}>
       {rates.map((rate, index) => (
         <span
+          onClick={() => onClick(rate)}
           data-value={rate}
           data-valug={value}
           key={`starts_key_${index}`}

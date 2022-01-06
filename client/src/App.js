@@ -4,10 +4,12 @@ import React, { useEffect, useState } from 'react';
 import Product from './components/Product';
 import ProductReviews from './components/ProductReviews';
 import { getProducts, addProduct, getProductReviews, addReview } from './db';
+import ReviewModal from './components/ReviewModal';
 
 function App() {
   const [products, setProducts] = useState([]);
   const [productName, setProductName] = useState('');
+  const [productUID, setProductUid] = useState('');
   const [reviews, setReviews] = useState([]);
   const [isOverlayVisible, setOverlayVisibility] = useState(false);
 
@@ -19,10 +21,17 @@ function App() {
     setProducts(await getProducts());
   }, []);
 
+  const saveReview = async (rating, text) => {
+    setOverlayVisibility(false);
+    await addReview(productUID, rating, text);
+    setReviews(await getProductReviews(productUID));
+  };
+
   const onProductSelected = async (product) => {
     setProductPage(true);
     setHomePage(false);
     setProductName(product.name);
+    setProductUid(product.uid);
     setReviews(await getProductReviews(product.uid));
   };
 
@@ -62,9 +71,9 @@ function App() {
         )}
       </div>
       {isOverlayVisible && (
-        <div id="overlay" className="overlay">
-          <h2></h2>
-        </div>
+        <ReviewModal
+          onSubmit={(rating, text) => saveReview(rating, text)}
+        ></ReviewModal>
       )}
     </div>
   );
