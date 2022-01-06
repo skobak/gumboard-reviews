@@ -1,34 +1,27 @@
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore/lite';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getProducts, addProduct, getProductReviews } from './db';
+import { renderProducts } from './render';
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: 'AIzaSyBRNQq97S1unHWw-xPIWLeBpzba6_w8sHQ',
-  authDomain: 'gumroad-challenge-b8fe4.firebaseapp.com',
-  projectId: 'gumroad-challenge-b8fe4',
-  storageBucket: 'gumroad-challenge-b8fe4.appspot.com',
-  messagingSenderId: '397377957832',
-  appId: '1:397377957832:web:76166449ca45f6de609afd',
+// Working with DOM part
+const addProductBtn = document.getElementById('add-product-button');
+addProductBtn.addEventListener('click', () => addProduct('New Product'));
+
+// Callback on product click
+const showProduct = async (uid) => {
+  await getProductReviews(uid);
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+// async main function
+async function main() {
+  const products = await getProducts();
+  renderProducts(products, (uid) => {
+    showProduct(uid);
+  });
+}
 
-// Methods
-const addReview = (stars, text) => {
-  console.log('AddReview!!');
-
-  // db.collection('reviews').add({
-  //   stars,
-  //   text,
-  // });
-};
-
-// get DOM elements references
-const addButton = document.getElementById('add-button');
-// add event listeners
-addButton.addEventListener('click', addReview(4.5, 'I love this product!'));
-console.log('--> App is starting');
+(async () => {
+  try {
+    await main();
+  } catch (e) {
+    // Deal with the fact the chain failed
+  }
+})();

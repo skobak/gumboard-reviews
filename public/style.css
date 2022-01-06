@@ -1,0 +1,14 @@
+#root {
+  max-width: 360px;
+  margin: 0 auto;
+}
+.product {
+  margin: 20px;
+  border: 1px solid #dadada;
+  border-radius: 5px;
+  padding: 20px;
+  cursor: pointer;
+}
+.product:hover {
+  background-color: #dadada;
+}
