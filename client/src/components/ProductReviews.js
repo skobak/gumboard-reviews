@@ -2,9 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Stars from './Stars';
 import Review from './Review';
+import calculateAvgRate from '../utils/utils';
 
 const ProductReviews = ({ name, reviews, onAddReviewClick }) => {
-  const avgRating = 3.44;
+  const rates = [];
+  reviews.forEach((review) => {
+    rates.push(review.rating);
+  });
+  const avgRating = calculateAvgRate(rates);
+
   return (
     <div>
       <h2 className="product-header">{name}</h2>

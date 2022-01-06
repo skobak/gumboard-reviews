@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 const Stars = ({ value, editable, onClick }) => {
   const rates = [5, 4.5, 4, 3.5, 3, 2.5, 2, 1.5, 1, 0.5];
+  // TODO: in order to retur shadow we can place full star benif with shadow and part on top
   return (
     <div className={`rating ${editable ? '' : 'disabled'}`}>
       {rates.map((rate, index) => (

@@ -33,7 +33,6 @@ function App() {
     setOverlayVisibility(false);
     if (!rating) return;
     await addReview(productUID, rating, text);
-    setReviews(await getProductReviews(productUID));
   };
 
   const onProductSelected = async (product) => {
@@ -41,12 +40,15 @@ function App() {
     setHomePage(false);
     setProductName(product.name);
     setProductUid(product.uid);
+
+    // TODO: we have to be sure about subscription management inside DB file to avoid memory leaks
     if (streamSubcription) {
       streamSubcription.unsubscribe();
     }
     const subscripton = productChange$.subscribe(async (doc) => {
       if (doc) {
         // For simplicity we just use firestore callback to retrieve document again
+        // TODO: techincally we can utilize doc instead of extra call
         setReviews(await getProductReviews(product.uid));
       }
     });
@@ -66,7 +68,15 @@ function App() {
       <div id="root">
         <h1>Review challenge MVP</h1>
         <div className="helping-panel">
-          <button className="btn">Add product</button>
+          <button
+            className="btn"
+            onClick={async () => {
+              await addProduct('New Product');
+              setProducts(await getProducts());
+            }}
+          >
+            Add product
+          </button>
           <button
             onClick={() => {
               setHomePage(true);
