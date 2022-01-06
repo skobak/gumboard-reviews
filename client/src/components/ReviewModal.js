@@ -7,6 +7,9 @@ const ReviewModal = ({ onSubmit }) => {
   const [rating, setRating] = React.useState(0);
   return (
     <div className="overlay">
+      <div class="close-modal-icon" onClick={() => onSubmit(false, false)}>
+        X
+      </div>
       <h2 className="product-header">What’s your rating?</h2>
       <label className="label">Rating</label>
       <Stars

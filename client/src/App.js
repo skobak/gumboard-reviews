@@ -23,6 +23,7 @@ function App() {
 
   const saveReview = async (rating, text) => {
     setOverlayVisibility(false);
+    if (!rating) return;
     await addReview(productUID, rating, text);
     setReviews(await getProductReviews(productUID));
   };
@@ -45,7 +46,13 @@ function App() {
         <h1>Review challenge MVP</h1>
         <div className="helping-panel">
           <button className="btn">Add product</button>
-          <button onClick={() => setHomePage(true)} className="btn">
+          <button
+            onClick={() => {
+              setHomePage(true);
+              setProductPage(false);
+            }}
+            className="btn"
+          >
             Home
           </button>
         </div>

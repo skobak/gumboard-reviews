@@ -75,7 +75,7 @@ span.review-text {
   border-radius: 15px;
   padding: 18px 53px 45px 53px;
   border: 1px solid #dadada;
-  top: 25%;
+  top: 15%;
   left: calc(50% - 340px);
   display: flex;
   flex-direction: column;
@@ -182,4 +182,10 @@ h3 {
 }
 .helping-panel > button {
   margin-right: 10px;
+}
+
+.close-modal-icon {
+  cursor: pointer;
+  text-align: left;
+  font-size: 20px;
 }
