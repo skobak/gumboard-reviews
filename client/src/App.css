@@ -49,8 +49,15 @@ span.review-text {
 .rating .star {
   stroke: #e0e0e0;
   fill: #e0e0e0;
-  -webkit-filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.1));
-  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.1));
+}
+
+.rating .star.leftHalf {
+  width: 14px;
+  overflow: hidden;
+}
+.rating .star.rightHalf {
+  overflow: hidden;
+  margin-left: -14px;
 }
 .rating .star.active {
   fill: #ffcd69;

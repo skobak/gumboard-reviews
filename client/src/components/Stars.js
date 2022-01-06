@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Stars = ({ value, editable, onClick }) => {
-  const rates = [5, 4, 3, 2, 1];
-  // const rates = [1, 2, 3, 4, 5];
+  const rates = [5, 4.5, 4, 3.5, 3, 2.5, 2, 1.5, 1, 0.5];
   return (
     <div className={`rating ${editable ? '' : 'disabled'}`}>
       {rates.map((rate, index) => (
@@ -12,7 +11,9 @@ const Stars = ({ value, editable, onClick }) => {
           data-value={rate}
           data-valug={value}
           key={`starts_key_${index}`}
-          className={`star ${value >= rate ? 'active' : ''}`}
+          className={`star ${value >= rate ? 'active' : ''} ${
+            rate % 1 !== 0 ? 'leftHalf' : 'rightHalf'
+          }`}
         >
           <svg fill="fill" viewBox="0 0 24 24" className="star-icon">
             <path

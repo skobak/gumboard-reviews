@@ -7,7 +7,7 @@ const Review = ({ review }) => {
     <div className="review">
       <Stars editable={false} value={review.rating}></Stars>
       <span className="review-rating">
-        {parseFloat(review.rating).toFixed(0)}
+        {parseFloat(review.rating).toFixed(1)}
       </span>
       {review.text && (
         <span className="review-text">
