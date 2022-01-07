@@ -6,37 +6,43 @@ const ReviewModal = ({ onSubmit }) => {
   const [text, setText] = React.useState('');
   const [rating, setRating] = React.useState(0);
   return (
-    <div className="overlay">
-      <div className="close-modal-icon" onClick={() => onSubmit(false, false)}>
-        X
-      </div>
-      <h2 className="product-header">What’s your rating?</h2>
-      <label className="label">Rating</label>
-      <Stars
-        editable={true}
-        value={rating}
-        onClick={(rating) => {
-          setRating(rating);
-        }}
-      ></Stars>
-      <label className="label">Review</label>
-      <input
-        id="review-input"
-        onKeyUp={(event) => {
-          setText(event.target.value);
-        }}
-        placeholder="Start typing..."
-      />
-      <div>
-        <button
-          className="btn"
-          id="submit-review"
-          onClick={() => onSubmit(rating, text)}
+    <>
+      <div className="overlay">
+        <div
+          data-testid="overlay"
+          className="close-modal-icon"
+          onClick={() => onSubmit(false, false)}
         >
-          Submit review
-        </button>
+          X
+        </div>
+        <h2 className="product-header">What’s your rating?</h2>
+        <label className="label">Rating</label>
+        <Stars
+          editable={true}
+          value={rating}
+          onClick={(rating) => {
+            setRating(rating);
+          }}
+        ></Stars>
+        <label className="label">Review</label>
+        <input
+          id="review-input"
+          onKeyUp={(event) => {
+            setText(event.target.value);
+          }}
+          placeholder="Start typing..."
+        />
+        <div>
+          <button
+            className="btn"
+            id="submit-review"
+            onClick={() => onSubmit(rating, text)}
+          >
+            Submit review
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

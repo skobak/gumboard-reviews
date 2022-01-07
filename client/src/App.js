@@ -10,7 +10,6 @@ import {
   getProductUpdateSubsciption,
   productChange$,
 } from './db';
-import ReviewModal from './components/ReviewModal';
 
 function App() {
   // Handle subscriptions
@@ -21,8 +20,8 @@ function App() {
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({ uid: '', name: '' });
   const [reviews, setReviews] = useState([]);
-  const [isOverlayVisible, setOverlayVisibility] = useState(false);
   const [loader, setLoader] = useState(true);
+  const [isOverlayVisible, setOverlayVisibility] = useState(false);
 
   // Handle pages: We do not use routing for simplicity and smaller bundle size
   const [isHomePage, setHomePage] = useState(true);
@@ -35,12 +34,6 @@ function App() {
     };
     fetchData();
   }, []);
-
-  const saveReview = async (rating, text) => {
-    setOverlayVisibility(false);
-    if (!rating) return;
-    await addReview(product.uid, rating, text);
-  };
 
   const setProductChangeSubscription = () => {
     if (productChangeSubscription) {
@@ -75,7 +68,10 @@ function App() {
     setProductPage(false);
     setHomePage(true);
   };
-
+  const saveReview = async (rating, text) => {
+    if (!rating) return;
+    await addReview(product.uid, rating, text);
+  };
   const goProductPage = () => {
     setProductPage(true);
     setHomePage(false);
@@ -92,7 +88,7 @@ function App() {
   return (
     <div className="App">
       <div id="root">
-        <h1>Review challenge MVP</h1>
+        <h1>Review challenge v2</h1>
         <div className="helping-panel">
           <button
             className="btn"
@@ -124,16 +120,13 @@ function App() {
             <ProductCard
               name={product?.name}
               reviews={reviews}
-              onAddReviewClick={() => setOverlayVisibility(true)}
+              onReviewAdded={(rating, text) => saveReview(rating, text)}
+              isOverlayVisible={isOverlayVisible}
+              setOverlayVisibility={setOverlayVisibility}
             />
           </div>
         )}
       </div>
-      {isOverlayVisible && (
-        <ReviewModal
-          onSubmit={(rating, text) => saveReview(rating, text)}
-        ></ReviewModal>
-      )}
     </div>
   );
 }

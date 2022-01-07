@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Product = ({ product, onClick }) => {
+const ProductItem = ({ product, onClick }) => {
   return (
     <div className="product" onClick={() => onClick(product)}>
       {product?.name}
@@ -9,13 +9,13 @@ const Product = ({ product, onClick }) => {
   );
 };
 
-Product.defaultProps = {
+ProductItem.defaultProps = {
   product: {},
   onClick: () => {},
 };
-Product.propTypes = {
+ProductItem.propTypes = {
   product: PropTypes.object,
   onClick: PropTypes.func,
 };
 
-export default Product;
+export default ProductItem;

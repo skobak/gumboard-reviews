@@ -26,6 +26,7 @@ const Stars = ({ value, editable, onClick }) => {
           data-value={rate}
           data-valug={value}
           key={`starts_key_${index}`}
+          data-testid={`${value >= rate ? 'active' : 'inactive'}`}
           className={`star ${value >= rate ? 'active' : ''} ${
             rate % 1 !== 0 ? 'left-half' : 'right-half'
           }`}

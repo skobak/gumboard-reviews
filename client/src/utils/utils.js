@@ -10,4 +10,9 @@ const calculateAvgRate = (arrayOfScores) => {
   return rate;
 };
 
-export default calculateAvgRate;
+const formatRating = (rating) => {
+  if (!rating) return '0.0';
+  return rating.toString().match(/^-?\d+(?:\.\d{0,1})?/)[0];
+};
+
+export { calculateAvgRate, formatRating };
