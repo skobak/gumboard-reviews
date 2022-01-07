@@ -36,15 +36,13 @@ function App() {
     await addReview(productUID, rating, text);
   };
 
-  const setProductChangeSubscription = (productUID) => {
+  const setProductChangeSubscription = () => {
     if (productChangeSubscription) {
       productChangeSubscription.unsubscribe();
     }
     productChangeSubscription = productChange$.subscribe(async (doc) => {
       if (doc) {
-        // For simplicity we just use firestore callback to retrieve document again
-        // TODO: techincally we can utilize doc instead of extra call
-        setReviews(await getProductReviews(productUID));
+        setReviews(doc.docs.map((result) => result.data()));
       }
     });
   };
@@ -71,14 +69,17 @@ function App() {
     setHomePage(true);
   };
 
-  const onProductSelected = async (product) => {
+  const goProductPage = () => {
     setProductPage(true);
     setHomePage(false);
+  };
+
+  const onProductSelected = async (product) => {
+    goProductPage();
     setProductName(product.name);
     setProductUid(product.uid);
-    setProductChangeSubscription(product.uid);
+    setProductChangeSubscription();
     setFirestoreSubscription(product.uid);
-    setReviews(await getProductReviews(product.uid));
   };
 
   return (
