@@ -2,6 +2,7 @@
  * This file in charge of DB(Firebase) comunication
  *
  */
+import { Subject } from 'rxjs';
 import { initializeApp } from 'firebase/app';
 import {
   getFirestore,
@@ -10,7 +11,10 @@ import {
   addDoc,
   doc,
   setDoc,
+  onSnapshot,
 } from 'firebase/firestore';
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -25,10 +29,25 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const productChange$ = new Subject();
+
+const getProductUpdateSubsciption = async (productId) => {
+  return onSnapshot(
+    collection(db, 'products', productId, 'reviews'),
+    { includeMetadataChanges: true },
+    (doc) => {
+      productChange$.next(doc);
+    },
+  );
+};
 
 const getProducts = async () => {
   const querySnapshot = await getDocs(collection(db, 'products'));
   return querySnapshot.docs.map((result) => result.data());
+};
+const getProductReviews = async (uid) => {
+  const docSnap = await getDocs(collection(db, 'products', uid, 'reviews'));
+  return docSnap.docs.map((result) => result.data());
 };
 
 async function addProduct(name) {
@@ -51,4 +70,11 @@ async function addReview(productId, rating, text) {
   }
 }
 
-export { getProducts, addProduct, addReview };
+export {
+  getProducts,
+  addProduct,
+  getProductReviews,
+  addReview,
+  getProductUpdateSubsciption,
+  productChange$,
+};
