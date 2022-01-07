@@ -1,45 +1,62 @@
-# gumboard-reviews (MVP)
+# Review challenge for Gumroad
 
-Web page for review a product
+Page with a list of products where you can read and leave your review
 
-**Live DEMO**
-MVP: https://gumroad-challenge-b8fe4.web.app
-V2(React): https://mysite-v2.web.app/
+According to a challenge task project have two front-end apps:
+**MVP**: with Vanilla JS, stores in a root of the project
+**V2(React)**: stores in a /client folder
 
-**Start**
+**Backend**: Firebase
 
-`npm i`
-`npm run dev`
-You need to use LiveServer or other plugin that will reload index.html on update(by webpack)
+## DEMO
 
-**Deploy**
-For your own deployment, you have to create a firestore project first and follow the instructions here:
-https://firebase.google.com/docs/firestore/quickstart
+[`MVP`](https://gumroad-challenge-b8fe4.web.app/)
+[`V2(React)`](https://mysite-v2.web.app/)
 
-Run from root folder:
-`npm run build`
-`firebase login`
-`firebase init`
-`firebase deploy --only hosting:mvc`
+## Installation for MVP
 
-# gumboard-reviews (V2)
+```sh
+npm install
+npm run dev
+```
 
-React app located in /client folder
+You need to use LiveServer or other plugins that will reload public/index.html on file update
 
-**Start**
-`cd client`
-`npm i`
-`npm run start`
+## Installation for V2(React)
 
-**Deploy**
-For your own deployment, you have to create a firestore project first and follow the instructions here:
-https://firebase.google.com/docs/firestore/quickstart
+```sh
+cd client
+npm install
+npm run test
+npm run start
+```
 
-Run from client folder:
-`npm run test`
-`npm run build`
+## Deployment
 
-Run from root folder:
-`firebase login`
-`firebase init`
-`firebase deploy --only hosting:v2`
+If you want to deploy it with your Firebase:
+[`Create firebase project`](https://firebase.google.com/docs/firestore/quickstart)
+
+And place your **firebaseConfig** into _src/db.js_ (MVC) and _client/src/db.js_ (React)
+
+For **MVC**: run from **Root** folder:
+
+```sh
+npm run build
+firebase login
+firebase init
+firebase deploy --only hosting:mvc
+```
+
+For **V2(React)**: run from **Client** folder:
+
+```sh
+npm run test
+npm run build
+firebase login
+firebase init
+firebase deploy --only hosting:v2
+```
+
+### License
+
+MIT
