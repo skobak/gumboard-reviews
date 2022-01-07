@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Stars from './Stars';
 import Review from './Review';
-import calculateAvgRate from '../utils/utils';
+import calculateAvgRate from '../utils/Utils';
 
 const ProductReviews = ({ name, reviews, onAddReviewClick }) => {
   const rates = [];

@@ -51,6 +51,15 @@ span.review-text {
   fill: #e0e0e0;
 }
 
+.rating .backgroundStars {
+  position: absolute;
+  z-index: 0;
+}
+.rating .backgroundStars .star.shadow {
+  -webkit-filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.1));
+}
+
 .rating .star.leftHalf {
   width: 14px;
   overflow: hidden;
@@ -62,6 +71,7 @@ span.review-text {
 .rating .star.active {
   fill: #ffcd69;
   stroke: #ffcd69;
+  z-index: 1;
 }
 .rating:not(.disabled):hover > span.star ~ span,
 .rating:not(.disabled):hover > span.star:first-child {
@@ -77,6 +87,7 @@ span.review-text {
 
 .overlay {
   position: absolute;
+  z-index: 2;
   width: 680px;
   background: white;
   border-radius: 15px;
