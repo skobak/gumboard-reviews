@@ -20,6 +20,7 @@ const Review = ({ review }) => {
 
 Review.defaultProps = {
   product: {},
+  onClick: () => {},
 };
 Review.propTypes = {
   product: PropTypes.object,

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Stars from './Stars';
-import Review from './Review';
+import ReviewItem from './ReviewItem';
 import calculateAvgRate from '../utils/Utils';
 
 const ProductReviews = ({ name, reviews, onAddReviewClick }) => {
@@ -27,7 +27,7 @@ const ProductReviews = ({ name, reviews, onAddReviewClick }) => {
       </div>
       <h3 className="reviews-title">Reviews</h3>
       {reviews.map((review, index) => (
-        <Review key={`review_${index}`} review={review}></Review>
+        <ReviewItem key={`review_${index}`} review={review}></ReviewItem>
       ))}
     </div>
   );

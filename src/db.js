@@ -2,7 +2,6 @@
  * This file in charge of DB(Firebase) comunication
  *
  */
-
 import { initializeApp } from 'firebase/app';
 import {
   getFirestore,
@@ -12,8 +11,6 @@ import {
   doc,
   setDoc,
 } from 'firebase/firestore';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -32,10 +29,6 @@ const db = getFirestore(app);
 const getProducts = async () => {
   const querySnapshot = await getDocs(collection(db, 'products'));
   return querySnapshot.docs.map((result) => result.data());
-};
-const getProductReviews = async (uid) => {
-  const docSnap = await getDocs(collection(db, 'products', uid, 'reviews'));
-  return docSnap.docs.map((result) => result.data());
 };
 
 async function addProduct(name) {
@@ -58,4 +51,4 @@ async function addReview(productId, rating, text) {
   }
 }
 
-export { getProducts, addProduct, getProductReviews, addReview };
+export { getProducts, addProduct, addReview };

@@ -7,7 +7,7 @@ const Stars = ({ value, editable, onClick }) => {
   return (
     <div className={`rating ${editable ? '' : 'disabled'}`}>
       <div className="backgroundStars">
-        {bgStars.map((rate, index) => (
+        {bgStars.map((index) => (
           <span className="star shadow" key={`shadow_stars_${index}`}>
             <svg fill="fill" viewBox="0 0 24 24" className="star-icon">
               <path
@@ -27,7 +27,7 @@ const Stars = ({ value, editable, onClick }) => {
           data-valug={value}
           key={`starts_key_${index}`}
           className={`star ${value >= rate ? 'active' : ''} ${
-            rate % 1 !== 0 ? 'leftHalf' : 'rightHalf'
+            rate % 1 !== 0 ? 'left-half' : 'right-half'
           }`}
         >
           <svg fill="fill" viewBox="0 0 24 24" className="star-icon">

@@ -1,12 +1,11 @@
 import './App.css';
 
 import React, { useEffect, useState } from 'react';
-import Product from './components/Product';
-import ProductReviews from './components/ProductReviews';
+import ProductItem from './components/ProductItem';
+import ProductCard from './components/ProductCard';
 import {
   getProducts,
   addProduct,
-  getProductReviews,
   addReview,
   getProductUpdateSubsciption,
   productChange$,
@@ -14,26 +13,31 @@ import {
 import ReviewModal from './components/ReviewModal';
 
 function App() {
+  // Handle subscriptions
   let productChangeSubscription;
   let dbStreamSubscription;
+
+  // State
   const [products, setProducts] = useState([]);
-  const [productName, setProductName] = useState('');
-  const [productUID, setProductUid] = useState('');
+  const [product, setProduct] = useState({ uid: '', name: '' });
   const [reviews, setReviews] = useState([]);
   const [isOverlayVisible, setOverlayVisibility] = useState(false);
 
-  // We do not use routing for simplicity and smaller bundle size
+  // Handle pages: We do not use routing for simplicity and smaller bundle size
   const [isHomePage, setHomePage] = useState(true);
   const [isProductPage, setProductPage] = useState(false);
 
-  useEffect(async () => {
-    setProducts(await getProducts());
+  useEffect(() => {
+    const fetchData = async () => {
+      setProducts(await getProducts());
+    };
+    fetchData();
   }, []);
 
   const saveReview = async (rating, text) => {
     setOverlayVisibility(false);
     if (!rating) return;
-    await addReview(productUID, rating, text);
+    await addReview(product.uid, rating, text);
   };
 
   const setProductChangeSubscription = () => {
@@ -47,6 +51,13 @@ function App() {
     });
   };
 
+  const setFirestoreSubscription = (productUID) => {
+    if (dbStreamSubscription) {
+      dbStreamSubscription();
+    }
+    dbStreamSubscription = getProductUpdateSubsciption(productUID);
+  };
+
   const cleanAllSubscriptions = () => {
     if (productChangeSubscription) {
       productChangeSubscription.unsubscribe();
@@ -54,13 +65,6 @@ function App() {
     if (dbStreamSubscription) {
       dbStreamSubscription();
     }
-  };
-
-  const setFirestoreSubscription = (productUID) => {
-    if (dbStreamSubscription) {
-      dbStreamSubscription();
-    }
-    dbStreamSubscription = getProductUpdateSubsciption(productUID);
   };
 
   const goHomePage = () => {
@@ -76,8 +80,7 @@ function App() {
 
   const onProductSelected = async (product) => {
     goProductPage();
-    setProductName(product.name);
-    setProductUid(product.uid);
+    setProduct({ uid: product.uid, name: product.name });
     setProductChangeSubscription();
     setFirestoreSubscription(product.uid);
   };
@@ -103,7 +106,7 @@ function App() {
         {isHomePage && (
           <div>
             {products.map((product, index) => (
-              <Product
+              <ProductItem
                 key={product.uid}
                 product={product}
                 onClick={(product) => onProductSelected(product)}
@@ -113,8 +116,8 @@ function App() {
         )}
         {isProductPage && (
           <div>
-            <ProductReviews
-              name={productName}
+            <ProductCard
+              name={product?.name}
               reviews={reviews}
               onAddReviewClick={() => setOverlayVisibility(true)}
             />

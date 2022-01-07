@@ -7,6 +7,21 @@
   margin: 0 auto;
   position: relative;
 }
+h2 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 44px;
+  line-height: 52px;
+  color: #000000;
+}
+h3 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 33px;
+  color: #000000;
+}
+
 .product {
   margin: 20px;
   border: 1px solid #dadada;
@@ -17,6 +32,7 @@
 .product:hover {
   background-color: #dadada;
 }
+
 .rating-row {
   display: flex;
   justify-content: space-between;
@@ -28,12 +44,14 @@
   display: flex;
   align-items: center;
 }
+
 span.review-rating {
   margin-left: 10px;
 }
 span.review-text {
   color: gray;
 }
+
 .rating {
   height: 40px;
   align-items: center;
@@ -50,7 +68,6 @@ span.review-text {
   stroke: #e0e0e0;
   fill: #e0e0e0;
 }
-
 .rating .backgroundStars {
   position: absolute;
   z-index: 0;
@@ -59,12 +76,11 @@ span.review-text {
   -webkit-filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.1));
   filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.1));
 }
-
-.rating .star.leftHalf {
+.rating .star.left-half {
   width: 14px;
   overflow: hidden;
 }
-.rating .star.rightHalf {
+.rating .star.right-half {
   overflow: hidden;
   margin-left: -14px;
 }
@@ -78,7 +94,6 @@ span.review-text {
   stroke: #e0e0e0;
   fill: #e0e0e0;
 }
-
 .rating:not(.disabled) > span:hover ~ span,
 .rating:not(.disabled) > span:hover {
   fill: #ffcd69 !important;
@@ -122,20 +137,6 @@ input#review-input {
   color: #929292;
 }
 
-h2 {
-  font-style: normal;
-  font-weight: bold;
-  font-size: 44px;
-  line-height: 52px;
-  color: #000000;
-}
-h3 {
-  font-style: normal;
-  font-weight: bold;
-  font-size: 28px;
-  line-height: 33px;
-  color: #000000;
-}
 .total-rate {
   font-style: normal;
   font-weight: normal;
@@ -155,7 +156,6 @@ h3 {
   color: #797874;
   background: #ffffff;
   border: 1px solid #cccccc;
-
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   padding: 14px 10px 13px 14px;
@@ -186,6 +186,7 @@ h3 {
   line-height: 23px;
   color: #000000;
 }
+
 .review .review-text {
   font-style: normal;
   font-weight: normal;
@@ -198,6 +199,7 @@ h3 {
   opacity: 0;
   z-index: -1;
 }
+
 .helping-panel > button {
   margin-right: 10px;
 }

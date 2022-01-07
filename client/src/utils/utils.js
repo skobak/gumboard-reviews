@@ -1,5 +1,5 @@
 /**
- *  This file is for general purpose functions
+ *  Utils for general use basic Business logic calculations
  *
  */
 
