@@ -10,6 +10,7 @@ import {
   getProductUpdateSubsciption,
   productChange$,
 } from './db';
+import Seed from './helpers/Seeder';
 
 function App() {
   // Handle subscriptions
@@ -102,6 +103,11 @@ function App() {
           <button onClick={() => goHomePage()} className="btn">
             Home
           </button>
+          {isProductPage && (
+            <button onClick={() => Seed(product.uid)} className="btn">
+              Seed reviews
+            </button>
+          )}
         </div>
         {loader && <div className="loader">Loading...</div>}
         {isHomePage && !loader && (
