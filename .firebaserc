@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "gumroad-challenge-b8fe4"
+  },
+  "targets": {
+    "gumroad-challenge-b8fe4": {
+      "hosting": {
+        "mvc": [
+          "mysite-mvc"
+        ],
+        "v2": [
+          "mysite-v2"
+        ]
+      }
+    }
   }
 }

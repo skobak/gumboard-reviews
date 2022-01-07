@@ -26,6 +26,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+const getProductReviews = async (uid) => {
+  const docSnap = await getDocs(collection(db, 'products', uid, 'reviews'));
+  return docSnap.docs.map((result) => result.data());
+};
 const getProducts = async () => {
   const querySnapshot = await getDocs(collection(db, 'products'));
   return querySnapshot.docs.map((result) => result.data());
@@ -51,4 +55,4 @@ async function addReview(productId, rating, text) {
   }
 }
 
-export { getProducts, addProduct, addReview };
+export { getProducts, addProduct, addReview, getProductReviews };
