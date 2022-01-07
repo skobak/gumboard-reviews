@@ -22,6 +22,7 @@ function App() {
   const [product, setProduct] = useState({ uid: '', name: '' });
   const [reviews, setReviews] = useState([]);
   const [isOverlayVisible, setOverlayVisibility] = useState(false);
+  const [loader, setLoader] = useState(true);
 
   // Handle pages: We do not use routing for simplicity and smaller bundle size
   const [isHomePage, setHomePage] = useState(true);
@@ -30,6 +31,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       setProducts(await getProducts());
+      setLoader(false);
     };
     fetchData();
   }, []);
@@ -47,6 +49,7 @@ function App() {
     productChangeSubscription = productChange$.subscribe(async (doc) => {
       if (doc) {
         setReviews(doc.docs.map((result) => result.data()));
+        setLoader(false);
       }
     });
   };
@@ -79,6 +82,7 @@ function App() {
   };
 
   const onProductSelected = async (product) => {
+    setLoader(true);
     goProductPage();
     setProduct({ uid: product.uid, name: product.name });
     setProductChangeSubscription();
@@ -93,7 +97,7 @@ function App() {
           <button
             className="btn"
             onClick={async () => {
-              await addProduct('New Product');
+              await addProduct(`New Product ${products.length + 1}`);
               setProducts(await getProducts());
             }}
           >
@@ -103,7 +107,8 @@ function App() {
             Home
           </button>
         </div>
-        {isHomePage && (
+        {loader && <div className="loader">Loading...</div>}
+        {isHomePage && !loader && (
           <div>
             {products.map((product, index) => (
               <ProductItem
@@ -114,7 +119,7 @@ function App() {
             ))}
           </div>
         )}
-        {isProductPage && (
+        {isProductPage && !loader && (
           <div>
             <ProductCard
               name={product?.name}

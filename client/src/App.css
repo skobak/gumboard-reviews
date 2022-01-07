@@ -209,3 +209,6 @@ input#review-input {
   text-align: left;
   font-size: 20px;
 }
+.loader {
+  padding: 20px 0px;
+}
