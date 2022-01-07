@@ -42,14 +42,18 @@ h3 {
 }
 .review {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
+  align-items: flex-start;
+  margin: 18px 0px;
 }
 
 span.review-rating {
   margin-left: 10px;
+  padding-top: 5px;
 }
 span.review-text {
   color: gray;
+  padding-top: 5px;
 }
 
 .rating {
