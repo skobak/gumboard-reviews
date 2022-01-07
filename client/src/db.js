@@ -32,7 +32,7 @@ const db = getFirestore(app);
 const productChange$ = new Subject();
 
 const getProductUpdateSubsciption = async (productId) => {
-  onSnapshot(
+  return onSnapshot(
     collection(db, 'products', productId, 'reviews'),
     { includeMetadataChanges: true },
     (doc) => {

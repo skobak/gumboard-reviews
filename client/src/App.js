@@ -14,7 +14,8 @@ import {
 import ReviewModal from './components/ReviewModal';
 
 function App() {
-  const [streamSubcription, setStreamSubcription] = useState(null);
+  let productChangeSubscription;
+  let dbStreamSubscription;
   const [products, setProducts] = useState([]);
   const [productName, setProductName] = useState('');
   const [productUID, setProductUid] = useState('');
@@ -35,32 +36,49 @@ function App() {
     await addReview(productUID, rating, text);
   };
 
+  const setProductChangeSubscription = (productUID) => {
+    if (productChangeSubscription) {
+      productChangeSubscription.unsubscribe();
+    }
+    productChangeSubscription = productChange$.subscribe(async (doc) => {
+      if (doc) {
+        // For simplicity we just use firestore callback to retrieve document again
+        // TODO: techincally we can utilize doc instead of extra call
+        setReviews(await getProductReviews(productUID));
+      }
+    });
+  };
+
+  const cleanAllSubscriptions = () => {
+    if (productChangeSubscription) {
+      productChangeSubscription.unsubscribe();
+    }
+    if (dbStreamSubscription) {
+      dbStreamSubscription();
+    }
+  };
+
+  const setFirestoreSubscription = (productUID) => {
+    if (dbStreamSubscription) {
+      dbStreamSubscription();
+    }
+    dbStreamSubscription = getProductUpdateSubsciption(productUID);
+  };
+
+  const goHomePage = () => {
+    cleanAllSubscriptions();
+    setProductPage(false);
+    setHomePage(true);
+  };
+
   const onProductSelected = async (product) => {
     setProductPage(true);
     setHomePage(false);
     setProductName(product.name);
     setProductUid(product.uid);
-
-    // TODO: we have to be sure about subscription management inside DB file to avoid memory leaks
-    if (streamSubcription) {
-      streamSubcription.unsubscribe();
-    }
-    const subscripton = productChange$.subscribe(async (doc) => {
-      if (doc) {
-        // For simplicity we just use firestore callback to retrieve document again
-        // TODO: techincally we can utilize doc instead of extra call
-        setReviews(await getProductReviews(product.uid));
-      }
-    });
-    setStreamSubcription(subscripton);
-
-    getProductUpdateSubsciption(product.uid);
-
+    setProductChangeSubscription(product.uid);
+    setFirestoreSubscription(product.uid);
     setReviews(await getProductReviews(product.uid));
-  };
-
-  const showOverlay = () => {
-    setOverlayVisibility(false);
   };
 
   return (
@@ -77,13 +95,7 @@ function App() {
           >
             Add product
           </button>
-          <button
-            onClick={() => {
-              setHomePage(true);
-              setProductPage(false);
-            }}
-            className="btn"
-          >
+          <button onClick={() => goHomePage()} className="btn">
             Home
           </button>
         </div>
